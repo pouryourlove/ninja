@@ -22,9 +22,13 @@ function App() {
     });
     console.log(id);
   };
+
+  const subtitle = "whatever..";
   return (
     <div className="App">
-      <Title />
+      <Title title="Events in Your Area" subtitle={subtitle} />
+      <Title title="another title" subtitle={"another subtitle"} />
+
       {showEvents && (
         <div>
           <button onClick={() => setShowEvents(false)}>hide events</button>
