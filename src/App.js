@@ -3,17 +3,19 @@ import { useState } from "react";
 import Title from "./components/Title";
 import Modal from "./components/Modal";
 import EventList from "./components/EventList";
+import NewEventForm from "./components/NewEventForm";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [showEvents, setShowEvents] = useState(true);
-  const [events, setEvents] = useState([
-    { title: "ju is the best", id: 1 },
-    { title: "hey Maisy", id: 2 },
-    { title: "Zzong is the best", id: 3 },
-  ]);
+  const [events, setEvents] = useState([]);
 
-  console.log(showModal);
+  const addEvent = (event) => {
+    setEvents((prevEvents) => {
+      return [...prevEvents, event];
+    });
+    setShowModal(false);
+  };
 
   //Filter method에서 true면 내버려두고 false면 filter해줌..
 
@@ -24,10 +26,6 @@ function App() {
       });
     });
     console.log(id);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
   };
 
   const subtitle = "whatever..";
@@ -50,20 +48,11 @@ function App() {
         <p>Use the code NINJA10 at the checkout.</p>
       </Modal> */}
       {showModal && (
-        <Modal handleClose={handleClose}>
-          <h2>hello blahblah</h2>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime
-            corporis quas officia reiciendis nobis saepe excepturi tempore, quod
-            pariatur voluptatibus labore vel delectus animi, ipsum hic rerum
-            voluptatum quisquam earum.
-          </p>
-          <a href="#" className="href">
-            find out more...
-          </a>
+        <Modal isSalesModal={true}>
+          <NewEventForm addEvent={addEvent} />
         </Modal>
       )}
-      <button onClick={() => setShowModal(true)}>open</button>
+      <button onClick={() => setShowModal(true)}>Add New Event</button>
     </div>
   );
 }
